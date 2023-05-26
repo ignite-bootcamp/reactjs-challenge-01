@@ -1,5 +1,7 @@
+import { Input } from "./components/input";
+
 function App() {
-  return <h1 className="">hello</h1>;
+  return <Input onChange={console.log} />;
 }
 
 export default App;
