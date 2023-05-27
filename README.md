@@ -48,5 +48,5 @@ Once your pull request has been merged, you can delete your branch.
 
 ## 📝 License
 
-This project is under the MIT license. See the [LICENSE](https://github.com/guivictorr/reactjs-challenge-01/blob/master/LICENSE) file for more details.
+This project is under the MIT license. See the [LICENSE](https://github.com/guivictorr/reactjs-challenge-01/blob/main/LICENSE) file for more details.
  
