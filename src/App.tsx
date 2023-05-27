@@ -96,7 +96,7 @@ function App() {
                 Tarefas criadas
               </span>
               <span className="ml-2 bg-gray-400 rounded-full px-2 py-[2px] text-sm text-gray-100 font-bold">
-                0
+                {todos.length}
               </span>
             </div>
             <div>
