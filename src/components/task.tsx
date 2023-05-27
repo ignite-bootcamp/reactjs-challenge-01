@@ -2,12 +2,13 @@ import classNames from "classnames";
 import { Checkbox } from "./checkbox";
 import { DeleteButton } from "./delete-button";
 import { ReactNode } from "react";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
 type TaskProps = {
   id: string;
   completed?: boolean;
   children: ReactNode;
-  onClick: () => void;
+  onClick: (value: CheckedState, id: string) => void;
   onClickDelete: (taskId: string) => void;
 };
 
@@ -34,7 +35,7 @@ export function Task({
       >
         <Checkbox
           checked={completed}
-          onCheckedChange={onClick}
+          onCheckedChange={value => onClick(value, id)}
           id={id}
           aria-describedby="label-description"
         />

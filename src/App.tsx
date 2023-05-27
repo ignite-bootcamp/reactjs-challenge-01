@@ -7,6 +7,7 @@ import { Task } from "./components/task";
 import classNames from "classnames";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { FormEvent } from "react";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
 type TodoProps = {
   content: string;
@@ -46,6 +47,21 @@ function App() {
   function handleDeleteTodo(todoId: string) {
     const filteredTodos = todos.filter(todo => todo.id !== todoId);
     setTodos(filteredTodos);
+  }
+
+  function handleCompleteTodo(value: CheckedState, todoId: string) {
+    const newTodos = todos.map(todo => {
+      if (todo.id === todoId) {
+        return {
+          ...todo,
+          completed: Boolean(value),
+        };
+      }
+
+      return todo;
+    });
+
+    setTodos(newTodos);
   }
 
   return (
@@ -106,7 +122,7 @@ function App() {
                   <Task
                     completed={todo.completed}
                     id={String(todo.id)}
-                    onClick={console.log}
+                    onClick={handleCompleteTodo}
                     onClickDelete={handleDeleteTodo}
                   >
                     {todo.content}
