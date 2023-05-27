@@ -5,21 +5,21 @@ import { Input } from "./components/input";
 import { Button } from "./components/button";
 import { Task } from "./components/task";
 import classNames from "classnames";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
-const todos = [
-  {
-    text: "titulo",
-    completed: false,
-    id: 1,
-  },
-  {
-    text: "titulo 2",
-    completed: true,
-    id: 2,
-  },
-];
+type TodoProps = {
+  content: string;
+  completed: boolean;
+  id: string;
+  created_at: string;
+};
 
 function App() {
+  const [todos, setTodos] = useLocalStorage<TodoProps[]>("todo-app:todos", []);
+  const completedTasksLength = todos.filter(todos =>
+    Boolean(todos.completed),
+  ).length;
+
   return (
     <section>
       <header className="bg-gray-700 h-52">
@@ -52,11 +52,9 @@ function App() {
               </span>
             </div>
             <div>
-              <span className="text-product-purple font-bold">
-                Tarefas criadas
-              </span>
+              <span className="text-product-purple font-bold">Concluídas</span>
               <span className="ml-2 bg-gray-400 rounded-full px-2 py-[2px] text-sm text-gray-100 font-bold">
-                0 de 5
+                {completedTasksLength} de {todos.length}
               </span>
             </div>
           </header>
@@ -73,8 +71,12 @@ function App() {
             <ul className="space-y-3">
               {todos.map(todo => (
                 <li key={todo.id}>
-                  <Task id={String(todo.id)} onClick={console.log}>
-                    {todo.text}
+                  <Task
+                    completed={todo.completed}
+                    id={String(todo.id)}
+                    onClick={console.log}
+                  >
+                    {todo.content}
                   </Task>
                 </li>
               ))}
