@@ -34,6 +34,10 @@ function App() {
     event.preventDefault();
     const inputElement = event.currentTarget.elements.todoContent;
 
+    if (!inputElement.value) {
+      return;
+    }
+
     const newTodo: TodoProps = {
       content: inputElement.value,
       completed: false,
