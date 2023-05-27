@@ -6,6 +6,7 @@ import { Button } from "./components/button";
 import { Task } from "./components/task";
 import classNames from "classnames";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { FormEvent } from "react";
 
 type TodoProps = {
   content: string;
@@ -14,11 +15,33 @@ type TodoProps = {
   created_at: string;
 };
 
+interface FormElements extends HTMLFormControlsCollection {
+  todoContent: HTMLInputElement;
+}
+interface UsernameFormElement extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
 function App() {
   const [todos, setTodos] = useLocalStorage<TodoProps[]>("todo-app:todos", []);
+  const lastTodoId = todos.at(-1)?.id;
   const completedTasksLength = todos.filter(todos =>
     Boolean(todos.completed),
   ).length;
+
+  function handleSubmit(event: FormEvent<UsernameFormElement>) {
+    event.preventDefault();
+    const inputElement = event.currentTarget.elements.todoContent;
+
+    const newTodo: TodoProps = {
+      content: inputElement.value,
+      completed: false,
+      id: Date.now().toString(),
+      created_at: new Date().toISOString(),
+    };
+
+    setTodos(prevTodos => [...prevTodos, newTodo]);
+  }
 
   return (
     <section>
@@ -26,8 +49,12 @@ function App() {
         <img src={logo} className="mx-auto pt-16" />
       </header>
       <div className="max-w-[736px] mx-auto">
-        <form className="flex gap-2 -mt-7 px-2">
-          <Input onChange={console.log} />
+        <form onSubmit={handleSubmit} className="flex gap-2 -mt-7 px-2">
+          <Input
+            key={lastTodoId}
+            name="todoContent"
+            placeholder="Adicione uma nova tarefa"
+          />
           <Button>
             Criar
             <PlusCircledIcon className="ml-2" />
@@ -68,7 +95,7 @@ function App() {
             </div>
           )}
           {todos.length > 0 && (
-            <ul className="space-y-3">
+            <ul className="space-y-3 pb-8">
               {todos.map(todo => (
                 <li key={todo.id}>
                   <Task
