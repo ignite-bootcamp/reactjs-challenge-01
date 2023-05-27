@@ -1,7 +1,13 @@
+import { Checkbox } from "./components/checkbox";
 import { Input } from "./components/input";
 
 function App() {
-  return <Input onChange={console.log} />;
+  return (
+    <div>
+      <Checkbox onCheckedChange={console.log} />
+      <Input onChange={console.log} />
+    </div>
+  );
 }
 
 export default App;

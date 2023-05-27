@@ -18,7 +18,7 @@ export function Input({ onChange }: InputProps) {
       }}
       placeholder="Adicione uma nova tarefa"
       className={classNames(
-        "bg-gray-500 rounded-lg p-4 placeholder:text-gray-300 text-gray-100 w-full ",
+        "bg-gray-500 rounded-lg p-4 placeholder:text-gray-300 text-gray-100 w-full",
         {
           "border border-product-purple": !!inputValue,
         },
