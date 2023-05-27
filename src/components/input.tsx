@@ -21,7 +21,7 @@ export function Input({ onChange }: InputProps) {
         "bg-gray-500 rounded-lg p-4 placeholder:text-gray-300 text-gray-100 w-full text-lg border",
         {
           "border-product-purple": !!inputValue,
-          "border-gray-500": !inputValue,
+          "border-gray-700": !inputValue,
         },
       )}
     />
