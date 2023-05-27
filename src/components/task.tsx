@@ -1,30 +1,22 @@
 import classNames from "classnames";
 import { Checkbox } from "./checkbox";
 import { DeleteButton } from "./delete-button";
-import { CheckboxProps } from "@radix-ui/react-checkbox";
 import { ReactNode } from "react";
 
 type TaskProps = {
   id: string;
   completed?: boolean;
-  onClickDelete: () => void;
   children: ReactNode;
-} & Pick<CheckboxProps, "onCheckedChange">;
-
-export function Task({
-  completed,
-  id,
-  onCheckedChange,
-  onClickDelete,
-  children,
-}: TaskProps) {
+  onClick: () => void;
+};
+export function Task({ id, children, completed, onClick }: TaskProps) {
   return (
     <div
       className={classNames(
         "flex gap-3 items-center justify-between bg-gray-500 border p-4 w-full rounded-lg",
         {
-          "border-gray-500": completed,
           "border-gray-400": !completed,
+          "border-gray-500": completed,
         },
       )}
     >
@@ -34,21 +26,18 @@ export function Task({
       >
         <Checkbox
           checked={completed}
-          onCheckedChange={onCheckedChange}
+          onCheckedChange={onClick}
           id={id}
           aria-describedby="label-description"
         />
         <span
           id="label-description"
-          className={classNames("flex-1", {
-            "text-gray-100": !completed,
-            "text-gray-300 line-through": completed,
-          })}
+          className="flex-1 text-gray-100 peer-radix-state-checked:text-gray-300 peer-radix-state-checked:line-through"
         >
           {children}
         </span>
       </label>
-      <DeleteButton onClick={onClickDelete} />
+      <DeleteButton onClick={console.log} />
     </div>
   );
 }
