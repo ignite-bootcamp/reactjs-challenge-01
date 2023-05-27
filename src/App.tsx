@@ -43,6 +43,11 @@ function App() {
     setTodos(prevTodos => [...prevTodos, newTodo]);
   }
 
+  function handleDeleteTodo(todoId: string) {
+    const filteredTodos = todos.filter(todo => todo.id !== todoId);
+    setTodos(filteredTodos);
+  }
+
   return (
     <section>
       <header className="bg-gray-700 h-52">
@@ -102,6 +107,7 @@ function App() {
                     completed={todo.completed}
                     id={String(todo.id)}
                     onClick={console.log}
+                    onClickDelete={handleDeleteTodo}
                   >
                     {todo.content}
                   </Task>

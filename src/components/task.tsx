@@ -8,8 +8,16 @@ type TaskProps = {
   completed?: boolean;
   children: ReactNode;
   onClick: () => void;
+  onClickDelete: (taskId: string) => void;
 };
-export function Task({ id, children, completed, onClick }: TaskProps) {
+
+export function Task({
+  id,
+  children,
+  completed,
+  onClick,
+  onClickDelete,
+}: TaskProps) {
   return (
     <div
       className={classNames(
@@ -37,7 +45,7 @@ export function Task({ id, children, completed, onClick }: TaskProps) {
           {children}
         </span>
       </label>
-      <DeleteButton onClick={console.log} />
+      <DeleteButton onClick={() => onClickDelete(id)} />
     </div>
   );
 }
