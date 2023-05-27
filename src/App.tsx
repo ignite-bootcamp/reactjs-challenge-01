@@ -3,6 +3,7 @@ import { Button } from "./components/button";
 import { Checkbox } from "./components/checkbox";
 import { Input } from "./components/input";
 import { DeleteButton } from "./components/delete-button";
+import { Task } from "./components/task";
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
         <PlusCircledIcon className="w-4 h-4 ml-2" />
       </Button>
       <DeleteButton onClick={console.log} />
+      <Task onClickDelete={console.log} id="taskId">
+        Integer urna interdum massa libero auctor neque turpis turpis semper.
+        Duis vel sed fames integer.
+      </Task>
     </div>
   );
 }
